@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: mean-opinion-score
-abstract: Command-line interface and Python library to evaluate text-to-speech mean opinion score studies done on Amazon Mechanical Turk.
+abstract: Library for calculating the mean opinion score and 95% confidence interval of the standard deviation of text-to-speech ratings according to Ribeiro et al. (2011).
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -16,4 +16,4 @@ version: 0.0.1
 date-released: 2023-02-23
 license: MIT
 url: https://github.com/stefantaubert/mean-opinion-score
-doi: 10.5281/zenodo.7669641
+doi: 10.5281/zenodo.7670649

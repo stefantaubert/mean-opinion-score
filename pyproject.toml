@@ -1,7 +1,7 @@
 [project]
 name = "mean-opinion-score"
 version = "0.0.1"
-description = "Python library to calculate mean opinion score and standard deviation."
+description = "Library for calculating the mean opinion score and 95% confidence interval of the standard deviation of text-to-speech ratings according to Ribeiro et al. (2011)."
 readme = "README.md"
 requires-python = ">=3.6, <3.12"
 license = {text = "MIT"}
