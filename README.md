@@ -87,12 +87,12 @@ tox
 Final lines of test result output:
 
 ```log
-  py36: commands succeeded
-  py37: commands succeeded
-  py38: commands succeeded
-  py39: commands succeeded
-  py310: commands succeeded
-  py311: commands succeeded
+  py36: OK
+  py37: OK
+  py38: OK
+  py39: OK
+  py310: OK
+  py311: OK
   congratulations :)
 ```
 
