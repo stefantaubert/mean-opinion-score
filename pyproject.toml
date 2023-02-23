@@ -1,0 +1,106 @@
+[project]
+name = "mean-opinion-score"
+version = "0.0.1"
+description = "Python library to calculate mean opinion score and standard deviation."
+readme = "README.md"
+requires-python = ">=3.6, <3.12"
+license = {text = "MIT"}
+authors = [
+  {name = "Stefan Taubert", email = "pypi@stefantaubert.com"}
+]
+maintainers = [
+  {name = "Stefan Taubert", email = "pypi@stefantaubert.com"},
+]
+keywords = [
+  "TTS",
+  "Text-to-speech",
+  "Speech synthesis",
+  "Mean Opinion Score",
+  "Language",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Operating System :: OS Independent",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX",
+  "Operating System :: POSIX :: BSD",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "pandas",
+  "tqdm",
+  "boto3",
+  "boto3-stubs[mturk]",
+  "ordered-set>=4.1.0",
+  "scipy",
+]
+
+[project.urls]
+Homepage = "https://github.com/stefantaubert/mean-opinion-score"
+Issues = "https://github.com/stefantaubert/mean-opinion-score/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = [
+  "mean_opinion_score",
+  "mean_opinion_score.*",
+  "mean_opinion_score_tests",
+  "mean_opinion_score_tests.*",
+]
+exclude = [
+  "mean_opinion_score_debug",
+  "mean_opinion_score_debug.*",
+]
+namespaces = true
+
+[tool.pytest.ini_options]
+log_cli = true
+log_level = "DEBUG"
+testpaths = [
+  "src/mean_opinion_score_tests",
+]
+
+[tool.autopep8]
+indent-size = 2
+ignore = ["E121"]
+max_line_length = 100
+
+[tool.isort]
+line_length = 100
+indent = 2
+known_first_party = [
+  "mean_opinion_score",
+  "mean_opinion_score_tests",
+]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{36,37,38,39,310,311}
+isolated_build = True
+
+[testenv]
+deps = 
+  pytest
+commands = 
+  pytest
+"""
+
+[build-system]
+requires = [
+  "setuptools >= 40.9.0",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"

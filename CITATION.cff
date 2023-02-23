@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: mean-opinion-score
+abstract: Command-line interface and Python library to evaluate text-to-speech mean opinion score studies done on Amazon Mechanical Turk.
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - email: github@stefantaubert.com
+    given-names: Stefan
+    family-names: Taubert
+    affiliation: Chemnitz University of Technology
+    orcid: 'https://orcid.org/0000-0002-4932-2874'
+    website: 'https://stefantaubert.com/'
+version: 0.0.1
+date-released: 2023-02-23
+license: MIT
+url: https://github.com/stefantaubert/mean-opinion-score
+doi: 10.5281/zenodo.7669641
