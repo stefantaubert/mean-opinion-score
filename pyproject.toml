@@ -39,11 +39,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-  "pandas",
-  "tqdm",
-  "boto3",
-  "boto3-stubs[mturk]",
-  "ordered-set>=4.1.0",
+  "numpy",
   "scipy",
 ]
 

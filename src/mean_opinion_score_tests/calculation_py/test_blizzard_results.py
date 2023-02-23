@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 
-from mean_opinion_score.mos_variance import compute_alg_mos_ci95
+from mean_opinion_score.calculation import get_ci95, get_mos
 from mean_opinion_score_tests.helper import get_test_resource_path
 
 
@@ -109,3 +109,27 @@ def test_blizzard_online_volunteers():
       0.26102635, 0.4237934, 0.39495915
     ]
   ], rtol=1e-7, atol=1e-8)
+
+
+def compute_alg_mos(ratings: np.ndarray) -> np.ndarray:
+  n_algorithms = ratings.shape[0]
+  result = np.empty(n_algorithms, dtype=np.float32)
+  for algo_i in range(n_algorithms):
+    result[algo_i] = get_mos(ratings[algo_i])
+  return result
+
+
+def compute_alg_ci95(ratings: np.ndarray) -> np.ndarray:
+  n_algorithms = ratings.shape[0]
+  result = np.empty(n_algorithms, dtype=np.float32)
+  for algo_i in range(n_algorithms):
+    result[algo_i] = get_ci95(ratings[algo_i])
+  return result
+
+
+def compute_alg_mos_ci95(ratings: np.ndarray) -> np.ndarray:
+  n_algorithms = ratings.shape[0]
+  result = np.empty((2, n_algorithms), dtype=np.float32)
+  result[0, :] = compute_alg_mos(ratings)
+  result[1, :] = compute_alg_ci95(ratings)
+  return result

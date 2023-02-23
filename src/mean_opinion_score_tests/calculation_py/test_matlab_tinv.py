@@ -1,6 +1,7 @@
 import math
+import sys
 
-from mean_opinion_score.mos_variance import matlab_tinv
+from mean_opinion_score.calculation import matlab_tinv
 
 
 def test_095_from_one_to_hundered_returns_correct_values():
@@ -27,11 +28,22 @@ def test_095_200__returns_1_9718962236316089():
   assert result == 1.9718962236316089
 
 
-def test_095_inf__returns_1_959963984540054():
+def test_py_36_37__095_inf__returns_1e100():
   result = matlab_tinv(0.5 * (1 + 0.95), math.inf)
-  assert result == 1.959963984540054
+
+  assert sys.version_info.major == 3
+  if 6 <= sys.version_info.minor < 8:
+    assert result == 1e+100
 
 
-def test_095_zero__returns_nan():
+def test_py_38_39_310_311__095_inf__returns_1_959963984540054():
+  result = matlab_tinv(0.5 * (1 + 0.95), math.inf)
+
+  assert sys.version_info.major == 3
+  if 8 <= sys.version_info.minor < 12:
+    assert result == 1.959963984540054
+
+
+def test_095_zero__returns_NaN():
   result = matlab_tinv(0.5 * (1 + 0.95), 0)
   assert math.isnan(result)

@@ -9,43 +9,14 @@ import numpy as np
 from scipy.stats import t
 
 
-def matlab_tinv(p: float, df: int) -> float:
-  result = -t.isf(p, df)
-  return result
-
-
-def compute_alg_mos(ratings: np.ndarray) -> np.ndarray:
-  n_algorithms = ratings.shape[0]
-  result = np.empty(n_algorithms, dtype=np.float32)
-  for algo_i in range(n_algorithms):
-    result[algo_i] = compute_mos(ratings[algo_i])
-  return result
-
-
-def compute_alg_ci95(ratings: np.ndarray) -> np.ndarray:
-  n_algorithms = ratings.shape[0]
-  result = np.empty(n_algorithms, dtype=np.float32)
-  for algo_i in range(n_algorithms):
-    result[algo_i] = compute_ci95(ratings[algo_i])
-  return result
-
-
-def compute_alg_mos_ci95(ratings: np.ndarray) -> np.ndarray:
-  n_algorithms = ratings.shape[0]
-  result = np.empty((2, n_algorithms), dtype=np.float32)
-  result[0, :] = compute_alg_mos(ratings)
-  result[1, :] = compute_alg_ci95(ratings)
-  return result
-
-
-def compute_mos(Z: np.ndarray) -> float:
+def get_mos(Z: np.ndarray) -> float:
   if np.isnan(Z).all():
     return np.nan
   mos = np.nanmean(Z)
   return mos
 
 
-def compute_ci95(Z: np.ndarray) -> float:
+def get_ci95(Z: np.ndarray) -> float:
   # Computes the 95% confidence interval using the sum of 3 Gaussian models.
   v_mu = get_v_mu(Z)
   t = matlab_tinv(0.5 * (1 + 0.95), min(Z.shape) - 1)
@@ -224,11 +195,16 @@ def get_mean_vertical_variance(Z: np.ndarray) -> float:
 
 def get_custom_variance(vec: np.ndarray) -> float:
   result = np.nan
-  if non_nan_count(vec) > 1:
+  if get_non_nan_count(vec) > 1:
     result = np.nanvar(vec)
   return result
 
 
-def non_nan_count(vec: np.ndarray) -> int:
+def get_non_nan_count(vec: np.ndarray) -> int:
   result = np.sum(~np.isnan(vec))
+  return result
+
+
+def matlab_tinv(p: float, df: int) -> float:
+  result = -t.isf(p, df)
   return result

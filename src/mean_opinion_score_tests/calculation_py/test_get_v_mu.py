@@ -1,6 +1,6 @@
 import numpy as np
 
-from mean_opinion_score.mos_variance import get_v_mu
+from mean_opinion_score.calculation import get_v_mu
 
 
 def test_component():
@@ -19,7 +19,7 @@ def test_component():
   assert result == 0.25230010602623226
 
 
-def test_v_su_not_nan_and_v_wu_not_nan():
+def test_v_su_not_NaN_and_v_wu_not_NaN():
   _ = np.nan
   Z = np.array([
     [5, 4],
@@ -31,7 +31,7 @@ def test_v_su_not_nan_and_v_wu_not_nan():
   assert result == 0.0625
 
 
-def test_v_su_nan_and_v_wu_not_nan():
+def test_v_su_NaN_and_v_wu_not_NaN():
   _ = np.nan
   Z = np.array([
     [5, 4],
@@ -42,7 +42,7 @@ def test_v_su_nan_and_v_wu_not_nan():
   assert result == 0.125
 
 
-def test_v_su_not_nan_and_v_wu_nan():
+def test_v_su_not_NaN_and_v_wu_NaN():
   _ = np.nan
   Z = np.array([
     [5],
@@ -54,7 +54,7 @@ def test_v_su_not_nan_and_v_wu_nan():
   assert result == 0.125
 
 
-def test_v_su_nan_and_v_wu_nan_and_Z_not_empty__returns_nan():
+def test_v_su_NaN_and_v_wu_NaN_and_Z_not_empty__returns_NaN():
   Z = np.array([[1]])
 
   result = get_v_mu(Z)
@@ -62,7 +62,7 @@ def test_v_su_nan_and_v_wu_nan_and_Z_not_empty__returns_nan():
   assert np.isnan(result)
 
 
-def test_v_su_nan_and_v_wu_nan_and_Z_empty__returns_nan():
+def test_v_su_NaN_and_v_wu_NaN_and_Z_empty__returns_NaN():
   Z = np.array([[]])
 
   result = get_v_mu(Z)

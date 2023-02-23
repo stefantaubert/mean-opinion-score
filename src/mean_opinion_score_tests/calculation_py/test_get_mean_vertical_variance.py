@@ -1,6 +1,6 @@
 import numpy as np
 
-from mean_opinion_score.mos_variance import get_mean_vertical_variance
+from mean_opinion_score.calculation import get_mean_vertical_variance
 
 
 def test_component():
@@ -28,7 +28,7 @@ def test_empty():
   assert np.isnan(result)
 
 
-def test_one_worker_zero_ratings__returns_nan():
+def test_one_worker_zero_ratings__returns_NaN():
   _ = np.nan
   Z = np.full((1, 0), fill_value=np.nan)
 
@@ -37,7 +37,7 @@ def test_one_worker_zero_ratings__returns_nan():
   assert np.isnan(result)
 
 
-def test_one_worker_one_rating__returns_nan():
+def test_one_worker_one_rating__returns_NaN():
   _ = np.nan
   Z = np.array([
     [5],
