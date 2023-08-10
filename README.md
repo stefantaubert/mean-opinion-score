@@ -118,5 +118,8 @@ Taubert, S. (2023). mean-opinion-score (Version 0.0.1) [Computer software]. http
 
 ## Changelog
 
+- v0.0.2 (unreleased)
+  - Added:
+    - added commonly used 95% confidence interval calculation
 - v0.0.1 (2023-02-23)
   - Initial release

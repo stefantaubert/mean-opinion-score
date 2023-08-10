@@ -3,7 +3,7 @@
 # Ribeiro, F., Florêncio, D., Zhang, C., & Seltzer, M. (2011). CrowdMOS: An approach for crowdsourcing mean opinion score studies. 2011 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 2416–2419. https://doi.org/10.1109/ICASSP.2011.5946971
 # ------------------------
 
-from math import sqrt
+from math import inf, sqrt
 
 import numpy as np
 from scipy.stats import t
@@ -17,28 +17,43 @@ def get_mos(Z: np.ndarray) -> float:
 
 
 def get_ci95(Z: np.ndarray) -> float:
-  # Computes the 95% confidence interval using the sum of 3 Gaussian models.
+  """
+  Computes the 95% confidence interval using the sum of 3 Gaussian models.
+  """
   v_mu = get_v_mu(Z)
   t = matlab_tinv(0.5 * (1 + 0.95), min(Z.shape) - 1)
   ci95 = t * sqrt(v_mu)
   return ci95
 
 
+def get_ci95_default(Z: np.ndarray) -> float:
+  """
+  Computes the 95% confidence interval.
+  """
+  s = np.nanstd(Z)
+  n = get_non_nan_count(Z)
+  t = matlab_tinv(0.5 * (1 + 0.95), inf)
+  x = t * s / sqrt(n)
+  return x
+
+
 def get_v_mu(Z: np.ndarray) -> float:
-  # Determines the variance of the mean opinion score, given a matrix of ratings.
-  # Unknown ratings are represented by NaN.
-  #
-  # Z: a N-by-M matrix of ratings, where the rows are subjects and columns are sentences
-  # We assume that
-  #
-  # 	Z_ij = mu + x_i + y_j + eps_ij, where
-  #
-  # mu is the mean opinion score (given by np.nanmean(Z))
-  # x_i ~ N(0, sigma_w^2), with sigma_w^2 modeling worker variation
-  # y_j ~ N(0, sigma_s^2), with sigma_y^2 modeling sentence variation
-  # eps_ij ~ N(0, sigma_u^2), with sigma_u^2 modeling worker uncertainty
-  #
-  # The returned value v_mu is Var[mu].
+  """
+  Determines the variance of the mean opinion score, given a matrix of ratings.
+  Unknown ratings are represented by NaN.
+
+  Z: a N-by-M matrix of ratings, where the rows are subjects and columns are sentences
+  We assume that
+
+    Z_ij = mu + x_i + y_j + eps_ij, where
+
+  mu is the mean opinion score (given by np.nanmean(Z))
+  x_i ~ N(0, sigma_w^2), with sigma_w^2 modeling worker variation
+  y_j ~ N(0, sigma_s^2), with sigma_y^2 modeling sentence variation
+  eps_ij ~ N(0, sigma_u^2), with sigma_u^2 modeling worker uncertainty
+
+  The returned value v_mu is Var[mu].
+  """
 
   v_su = get_su(Z)  # v_su  = v_s + v_u
   v_wu = get_wu(Z)  # v_wu  = v_w + v_u
