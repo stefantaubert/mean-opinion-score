@@ -6,7 +6,7 @@
 from math import inf, sqrt
 
 import numpy as np
-from scipy.stats import t
+from scipy.stats import t as scipy_t
 
 
 def get_mos(Z: np.ndarray) -> float:
@@ -30,11 +30,12 @@ def get_ci95_default(Z: np.ndarray) -> float:
   """
   Computes the 95% confidence interval.
   """
+  # 1.959963984540054
+  z_score = matlab_tinv(0.5 * (1 + 0.95), inf)
   s = np.nanstd(Z)
   n = get_non_nan_count(Z)
-  t = matlab_tinv(0.5 * (1 + 0.95), inf)
-  x = t * s / sqrt(n)
-  return x
+  ci95 = z_score * s / sqrt(n)
+  return ci95
 
 
 def get_v_mu(Z: np.ndarray) -> float:
@@ -221,5 +222,5 @@ def get_non_nan_count(vec: np.ndarray) -> int:
 
 
 def matlab_tinv(p: float, df: int) -> float:
-  result = -t.isf(p, df)
+  result = -scipy_t.isf(p, df)
   return result

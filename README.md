@@ -21,12 +21,12 @@ pip install mean-opinion-score --user
 ```py
 import numpy as np
 
-from mean_opinion_score import get_ci95, get_mos
+from mean_opinion_score import get_ci95, get_ci95_default, get_mos
 
 _ = np.nan
 
-# columns represent sentences
 ratings = np.array([
+    # columns represent sentences
     [4, 5, _, 4, _, 3],  # rater 1
     [4, 4, 4, 5, _, 4],  # rater 2
     [_, 3, 5, 4, _, 1],  # rater 3
@@ -35,9 +35,12 @@ ratings = np.array([
 
 mos = get_mos(ratings)
 ci = get_ci95(ratings)
+ci_default = get_ci95_default(ratings)
 
 print(f"MOS: {mos:.2f} ± {ci:.4f}")
+print(f"MOS: {mos:.2f} ± {ci_default:.4f}")
 # MOS: 3.85 ± 1.3316
+# MOS: 3.85 ± 0.5579
 ```
 
 ## Dependencies
@@ -120,6 +123,6 @@ Taubert, S. (2023). mean-opinion-score (Version 0.0.1) [Computer software]. http
 
 - v0.0.2 (unreleased)
   - Added:
-    - added commonly used 95% confidence interval calculation
+    - commonly used 95% confidence interval calculation
 - v0.0.1 (2023-02-23)
   - Initial release
