@@ -12,8 +12,8 @@ authors:
     affiliation: Chemnitz University of Technology
     orcid: 'https://orcid.org/0000-0002-4932-2874'
     website: 'https://stefantaubert.com/'
-version: 0.0.1
-date-released: 2023-02-23
+version: 0.0.2
+date-released: 2023-08-11
 license: MIT
 url: https://github.com/stefantaubert/mean-opinion-score
-doi: 10.5281/zenodo.7670649
+doi: 10.5281/zenodo.8238259

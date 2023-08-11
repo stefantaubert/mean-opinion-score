@@ -3,9 +3,10 @@
 # Ribeiro, F., Florêncio, D., Zhang, C., & Seltzer, M. (2011). CrowdMOS: An approach for crowdsourcing mean opinion score studies. 2011 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 2416–2419. https://doi.org/10.1109/ICASSP.2011.5946971
 # ------------------------
 
-from math import inf, sqrt
+from math import sqrt
 
 import numpy as np
+from scipy.stats import norm
 from scipy.stats import t as scipy_t
 
 
@@ -30,8 +31,9 @@ def get_ci95_default(Z: np.ndarray) -> float:
   """
   Computes the 95% confidence interval.
   """
-  # 1.959963984540054
-  z_score = matlab_tinv(0.5 * (1 + 0.95), inf)
+  # matlab_tinv() doesn't work with inf for py36, py37
+  # z_score = matlab_tinv(0.5 * (1 + 0.95), inf)
+  z_score = norm.ppf(0.5 * (1 + 0.95))
   s = np.nanstd(Z)
   n = get_non_nan_count(Z)
   ci95 = z_score * s / sqrt(n)
