@@ -22,6 +22,7 @@ def get_ci95(Z: np.ndarray) -> float:
   Computes the 95% confidence interval using the sum of 3 Gaussian models.
   """
   v_mu = get_v_mu(Z)
+  # "[..] where t is the appropriate percentile from a t distribution with min (N, M) − 1 degrees of freedom. (S. 2418)"
   t = matlab_tinv(0.5 * (1 + 0.95), min(Z.shape) - 1)
   ci95 = t * sqrt(v_mu)
   return ci95
